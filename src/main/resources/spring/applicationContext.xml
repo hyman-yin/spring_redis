@@ -107,5 +107,6 @@
 	
 	<!-- 引入redis配置文件 -->
 	<import resource="classpath:spring/applicationContext-redis.xml" />	
+	<import resource="classpath:spring/applicationContext-profile.xml" />	
 
 </beans>

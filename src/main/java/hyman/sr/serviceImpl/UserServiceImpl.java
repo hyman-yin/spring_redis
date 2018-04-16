@@ -3,6 +3,7 @@ package hyman.sr.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper iUserDao;
 
+    /**
+     * 从配置文件中读取env_name的值，不同环境配置了不同的配置文件，通过web.xml中 
+     * <param-name>spring.profiles.active</param-name>来指定
+     * 每个环境对应的配置文件配置在applicationContext-profile.xml中
+     */
+    @Value("${env_name}")
+    private String env_name;
+    
     @Cacheable("getAllUser")
     @Override
     public List<User> getAllUser() {
+    	System.out.println("env_name is : "+env_name);
         return this.iUserDao.selectAllUser();
     }
 
